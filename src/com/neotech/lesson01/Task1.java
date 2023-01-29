@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 import com.neotech.utils.CommonMethods;
 import com.neotech.utils.ConfigsReader;
 
-public class Homework1 extends CommonMethods{
+public class Task1 extends CommonMethods{
 
 //	Homework 1: HRMS Application Negative Login:
 //	    1. Open chrome browser
