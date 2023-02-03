@@ -331,23 +331,21 @@ public class CommonMethods extends BaseClass{
 	}
 	
 	/**
-	 * This method takes screnshot and saves it with provided file name
+	 * This method takes a screenshot and saves it with the provided file name
 	 * 
 	 * @param filename
 	 */
 	public static void takeScreenshot(String filename) {
-		
-		
+
 		TakesScreenshot ts = (TakesScreenshot) driver;
+
 		File source = ts.getScreenshotAs(OutputType.FILE);
 		try {
 			FileUtils.copyFile(source, new File("screenshot/" + filename + ".png"));
 		} catch (IOException e) {
-			System.out.println("Screenshot NOT taken");			
 			e.printStackTrace();
 		}
-		
+
 	}
-	
 	
 }

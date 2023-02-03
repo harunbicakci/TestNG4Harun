@@ -13,105 +13,93 @@ import com.neotech.utils.ExcelUtility;
 
 public class Homework1 extends CommonMethods{
 
-//	TC 1: OrangeHRM Add Employee:
-//	1. Open chrome browser
-//	2. Go to "https://hrm.neotechacademy.com/"
-//	3. Login to the application
-//	4. Add 3 different Employees and Create Login Details by
-//	providing:
-//	○ First Name
-//	○ Last Name
-//	○ Username
-//	○ Password
-//	5. Verify Employee has been added successfully and take
-//	screenshot (you must have 3 different screenshots)
-//	6. Close the browser
-//	Specify a group for this test case, add it into specific suite and
-//	execute from the xml file.
+//	Open chrome browser
+//	Go to "https://hrm.neotechacademy.com/"
+//	Login to the application
+//	Add 3 different Employees and Create Login Details by providing:
+//	First Name
+//	Last Name
+//	Username
+//	Password
+//	Verify Employee has been added successfully and take screenshot (you must have 3 different screenshots)
+//	Close the browser
+//	Specify a group for this test case, add it into specific suite and execute from the xml file.
 
-	@Test (dataProvider = "createData")
+	@Test(dataProvider = "excelData", groups = { "smoke", "homework" })
 	public void test(String firstName, String lastName, String username, String password) {
 
-		// login
+		// Login
 		sendText(driver.findElement(By.id("txtUsername")), ConfigsReader.getProperty("username"));
 		sendText(driver.findElement(By.id("txtPassword")), ConfigsReader.getProperty("password"));
 		click(driver.findElement(By.xpath("//button[@type='submit']")));
-		
-		// click on PIM meni
-		click(driver.findElement(By.xpath("//span[text()='PIM']")));
-		// click on Add Employee
-		click(driver.findElement(By.xpath("//span[text()='Add Employee']")));
-		
+
+		// Click on PIM menu
+		driver.findElement(By.id("menu_pim_viewPimModule")).click();
+		// Click on Add Employee
+		driver.findElement(By.linkText("Add Employee")).click();
+
 		wait(1);
-		
-		// enter new employee data
+
+		// Enter New Employee Data
 		sendText(driver.findElement(By.id("first-name-box")), firstName);
 		sendText(driver.findElement(By.id("last-name-box")), lastName);
-		
-		wait(1);
-		
-		// enter empID for validation
+
+		// Get empID for validation
 		String empID = driver.findElement(By.id("employeeId")).getAttribute("value");
-		
-		// select the correct location
+
+		// Select the correct location
 		WebElement dropdown = driver.findElement(By.id("location"));
 		Select sel = new Select(dropdown);
 		sel.selectByVisibleText("France Regional HQ");
-		// extra hw, pass the location as a parameter
-		
-		// selenium click didnt work, jsClick worked
+		// Extra HW, pass the location as a parameter
+
+		// Selenium click didn't work, we used JavascriptExecutor
 		jsClick(driver.findElement(By.id("hasLoginDetails")));
 		wait(1);
-		
-		// provide the username and password for the new employee
+
+		// Provide the username and password for the new Employee
 		sendText(driver.findElement(By.id("username")), username);
 		sendText(driver.findElement(By.id("password")), password);
 		sendText(driver.findElement(By.id("confirmPassword")), password);
 		wait(1);
 
-		// clicking on save button
-		click(driver.findElement(By.id("modal-save=button")));
-		
+		// Clicking on Save Button
+		click(driver.findElement(By.id("modal-save-button")));
+
 		waitForVisibility(driver.findElement(By.id("pimPersonalDetailsForm")));
-		
-		// validation
+
+		// Validation
 		String actualID = driver.findElement(By.id("employeeId")).getAttribute("value");
 		Assert.assertEquals(actualID, empID, "EmployeeId's do NOT match!");
-		
-		// 1st way take screenshot
+
+		// Take Screenshot
+
+		// 1st way
 //		TakesScreenshot ts = (TakesScreenshot) driver;
 //		File source = ts.getScreenshotAs(OutputType.FILE);
 //		try {
 //			FileUtils.copyFile(source, new File("screenshot/" + firstName + "_" + lastName + ".png"));
 //		} catch (IOException e) {
-//			System.out.println("Screenshot NOT taken");			
 //			e.printStackTrace();
 //		}
-		
-		// 2nd way take screenshot --> will save to parameter name
+
+		// 2nd way
 		takeScreenshot(firstName + "_" + lastName);
-		
-		
-		
 	}
 
-	@DataProvider
+	@DataProvider(name = "getData")
 	public Object[][] createData() {
-		Object[][] data = { { "Jeff", "Bezos", "Jeff2023", "Bezos@1234" },
-				{ "Bill", "Gates", "Bill2023", "Gates@1234" }, 
-				{ "Elon", "Musk", "Elon2023", "Musk@1234" } 
+		Object[][] data = { { "Jeff", "Bezos", "Jeff20234", "Bezos@1234" },
+				{ "Bill", "Gates", "Bill20234", "Gates@1234" }, 
+				{ "Elon", "Musk", "Elon20234", "Musk@1234" } 
 			};
 
 		return data;
 	}
-	
-	
-	@DataProvider (name = "excelData")
-	public Object[][] getExcelData(){
-		return ExcelUtility.excelIntoArray(System.getProperty("user.dir") + "/testdata/Excel.xlsx", getAlertText())
+
+	@DataProvider(name = "excelData")
+	public Object[][] getExcelData() {
+		return ExcelUtility.excelIntoArray(System.getProperty("user.dir") + "/testdata/Excel.xlsx", "Employee");
 	}
-	
-	
-	
 
 }
