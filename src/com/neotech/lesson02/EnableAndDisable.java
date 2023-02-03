@@ -4,7 +4,7 @@ import org.testng.annotations.Test;
 
 public class EnableAndDisable {
 
-	@Test(priority = 0)
+	@Test(priority = 0, groups="smoke")
 	public void firstTest() {
 		System.out.println("First Test Method");
 	}

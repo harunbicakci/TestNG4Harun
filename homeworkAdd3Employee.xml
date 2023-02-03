@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="HomeworkAdd3EmployeeSuite">
+  <test thread-count="5" name="HomeworkAdd3EmployeeTest">
+  	<groups>
+  		<run>
+  			<include name="random"></include>
+  		</run>
+  	</groups>
+  
+    <classes>
+      <class name="com.neotech.lesson03.Task1"/>
+    </classes>
+  </test> <!-- HomeworkAdd3EmployeeTest -->
+</suite> <!-- HomeworkAdd3EmployeeSuite -->

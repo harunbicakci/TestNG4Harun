@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite guice-stage="DEVELOPMENT" name="Failed suite [HomeworkAdd3EmployeeSuite]">
+  <test thread-count="5" name="HomeworkAdd3EmployeeTest(failed)">
+    <groups>
+      <run>
+        <include name="random"/>
+      </run>
+    </groups>
+    <classes>
+      <class name="com.neotech.lesson03.Task1">
+        <methods>
+          <include name="addEmployee" invocation-numbers="1 2"/>
+          <include name="tearDown"/>
+          <include name="setUp"/>
+        </methods>
+      </class> <!-- com.neotech.lesson03.Task1 -->
+    </classes>
+  </test> <!-- HomeworkAdd3EmployeeTest(failed) -->
+</suite> <!-- Failed suite [HomeworkAdd3EmployeeSuite] -->
